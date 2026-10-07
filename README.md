@@ -1,8 +1,8 @@
 # DDD Posts API
 
-A simple REST API built with **Node.js, Express, TypeScript, MongoDB, and Mongoose**.
+A simple REST API built with Node.js, Express, TypeScript, MongoDB, Mongoose, and Kafka.
 
-I built this project to practice **DDD architecture**, repository pattern, dependency injection, validation, and REST API development.
+I built this project to practice DDD architecture, repository pattern, dependency injection, validation, and event-driven communication.
 
 ## Tech Stack
 
@@ -11,7 +11,11 @@ I built this project to practice **DDD architecture**, repository pattern, depen
 - TypeScript
 - MongoDB
 - Mongoose
+- Kafka
+- KafkaJS
 - Zod
+- Docker
+- Docker Compose
 - Postman
 
 ## Project Structure
@@ -31,13 +35,15 @@ src/
 │       └── listposts/
 │
 ├── domain/
+│   ├── events/
 │   └── post/
 │       ├── entities/
 │       └── repositories/
 │
 ├── infrastructure/
 │   ├── database/
-│   └── repositories/
+│   ├── repositories/
+│   └── kafka/
 │
 └── app/
     ├── app.ts
@@ -50,11 +56,35 @@ src/
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/api/v1/health` | Health check |
-| POST | `/api/v1/posts/` | Create a post |
-| GET | `/api/v1/posts/` | Get all posts |
+| POST | `/api/v1/posts` | Create a post |
+| GET | `/api/v1/posts` | Get all posts |
 | GET | `/api/v1/posts/:id` | Get post by ID |
 
-## Run the Project
+## Environment Variables
+
+For local development, create a `.env` file:
+
+```env
+PORT=5000
+NODE_ENV=development
+API_PREFIX=/api/v1
+MONGODB_URI=mongodb://localhost:27017/Posts
+KAFKA_BROKER=localhost:9092
+```
+
+For Docker, the API uses:
+
+```env
+PORT=5000
+NODE_ENV=production
+API_PREFIX=/api/v1
+MONGODB_URI=mongodb://mongodb:27017/Posts
+KAFKA_BROKER=kafka:9093
+```
+
+Don't push `.env` files with real secrets to GitHub.
+
+## Run Locally
 
 Install dependencies:
 
@@ -62,15 +92,7 @@ Install dependencies:
 npm install
 ```
 
-Create a `.env` file:
-
-```env
-PORT=5000
-MONGODB_URI=your_mongodb_connection_string
-NODE_ENV=development
-```
-
-Run the development server:
+Run the project:
 
 ```bash
 npm run dev
@@ -82,9 +104,33 @@ The API will run on:
 http://localhost:5000
 ```
 
+## Run with Docker
+
+Build and start the containers:
+
+```bash
+docker compose up -d --build
+```
+
+Check the containers:
+
+```bash
+docker compose ps
+```
+
+Stop the containers:
+
+```bash
+docker compose down
+```
+
 ## Example Request
 
 ### Create Post
+
+```text
+POST /api/v1/posts
+```
 
 ```json
 {
@@ -93,4 +139,4 @@ http://localhost:5000
 }
 ```
 
-The project can be tested using **Postman**.
+The project can be tested using Postman.
