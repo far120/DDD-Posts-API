@@ -124,6 +124,27 @@ Stop the containers:
 docker compose down
 ```
 
+## Deployment
+
+The API is deployed on **AWS EC2** using **Docker Compose**.
+
+Deployed API:
+
+```text
+http://16.171.198.214:5000
+```
+
+### Deployed Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `http://16.171.198.214:5000/api/v1/health` | Health check |
+| POST | `http://16.171.198.214:5000/api/v1/posts` | Create a post |
+| GET | `http://16.171.198.214:5000/api/v1/posts` | Get all posts |
+| GET | `http://16.171.198.214:5000/api/v1/posts/:id` | Get post by ID |
+
+The application runs in Docker containers on an AWS EC2 instance with MongoDB and Kafka.
+
 ## Example Request
 
 ### Create Post
@@ -140,3 +161,5 @@ POST /api/v1/posts
 ```
 
 The project can be tested using Postman.
+
+created by [@Mostafa ELFAR](https://github.com/far120)

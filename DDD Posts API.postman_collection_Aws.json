@@ -1,0 +1,150 @@
+{
+  "info": {
+    "_postman_id": "a7c92f31-5b64-4e18-9c73-21d8f6a40b17",
+    "name": "DDD Posts API - Deployment",
+    "description": "Postman collection for testing the deployed DDD Posts API on AWS EC2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Posts",
+      "item": [
+        {
+          "name": "Create Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"My First Post\",\n  \"content\": \"This is my first post using the deployed DDD API.\"\n}"
+            },
+            "url": {
+              "raw": "{{deploymentBaseUrl}}/posts",
+              "host": [
+                "{{deploymentBaseUrl}}"
+              ],
+              "path": [
+                "posts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{deploymentBaseUrl}}/posts",
+              "host": [
+                "{{deploymentBaseUrl}}"
+              ],
+              "path": [
+                "posts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Post By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{deploymentBaseUrl}}/posts/{{postId}}",
+              "host": [
+                "{{deploymentBaseUrl}}"
+              ],
+              "path": [
+                "posts",
+                "{{postId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Post - Validation Error",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{deploymentBaseUrl}}/posts",
+              "host": [
+                "{{deploymentBaseUrl}}"
+              ],
+              "path": [
+                "posts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Post - Not Found",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{deploymentBaseUrl}}/posts/507f1f77bcf86cd799439011",
+              "host": [
+                "{{deploymentBaseUrl}}"
+              ],
+              "path": [
+                "posts",
+                "507f1f77bcf86cd799439011"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{deploymentBaseUrl}}/health",
+          "host": [
+            "{{deploymentBaseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "deploymentBaseUrl",
+      "value": "http://16.171.198.214:5000/api/v1"
+    },
+    {
+      "key": "postId",
+      "value": ""
+    }
+  ]
+}
